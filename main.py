@@ -5,12 +5,14 @@ from enum import Enum
 import math
 import random
 import matplotlib.pyplot as plt
-
+import time
+import numpy as np
 class Color(Enum):
     RED = 1
     BLUE = 2
     GREEN = 3
     PURPLE = 4
+    YELLOW = 5
     
 
 class point:
@@ -22,7 +24,7 @@ class point:
     def __init__(self, x, y, color):
         self.x = x
         self.y = y
-        self.generatedcolor = color
+        self.color = color
         self.distance = 0
 
 def distance(p1, p2):
@@ -31,8 +33,12 @@ def distance(p1, p2):
 def getNearestNeighbours(k, point, points):
     for p in points:
         p.distance = distance(point, p)
+        
+    # newpoints = np.argpartition(points, k, lambda x: x.distance)
+    # return newpoints[:k]
     points.sort(key=lambda x: x.distance)
     return points[:k]
+    
 
 def getMostFrequentColor(neighbours):
     red = 0
@@ -87,54 +93,60 @@ def initialpoints():
     return points
 
 def main():
+    start_time = time.time()
+    
     points = initialpoints()
-    k = 5
+    k = 1
     for i in range(10000):
         x = random.randint(-5000, 500)
         y = random.randint(-5000, 500)
         newpoint = point(x, y, Color.RED)
         neighbours = getNearestNeighbours(k, newpoint, points)
         newpoint.color = getMostFrequentColor(neighbours)
+        # print(newpoint.color)
         points.append(newpoint)
         
-        x = random.randint(5000, -500)
+        x = random.randint(-500,5000)
         y = random.randint(-5000, 500)
         newpoint = point(x, y, Color.GREEN)
         neighbours = getNearestNeighbours(k, newpoint, points)
         newpoint.color = getMostFrequentColor(neighbours)
+        # print(newpoint.color)
         points.append(newpoint)
         
         x = random.randint(-5000, 500)
-        y = random.randint(5000, -500)
+        y = random.randint(-500,5000)
         newpoint = point(x, y, Color.BLUE)
         neighbours = getNearestNeighbours(k, newpoint, points)
         newpoint.color = getMostFrequentColor(neighbours)
+        # print(newpoint.color)
         points.append(newpoint)
         
-        x = random.randint(5000, -500)
-        y = random.randint(5000, -500)
+        x = random.randint(-500,5000)
+        y = random.randint(-500,5000)
         newpoint = point(x, y, Color.PURPLE)
         neighbours = getNearestNeighbours(k, newpoint, points)
         newpoint.color = getMostFrequentColor(neighbours)
+        # print(newpoint.color)
         points.append(newpoint)
+        if i % 1000 == 0:
+            print(i)
+            print("--- %s seconds ---" % (time.time() - start_time))
+    
+    end_time = time.time()
+    print("Time elapsed: ", end_time - start_time)
         
     for p in points:
-        if p.color == Color.RED:
-            plt.plot(p.x, p.y, 'ro')
-        elif p.color == Color.BLUE:
+        if p.color == Color.BLUE:
             plt.plot(p.x, p.y, 'bo')
+        elif p.color == Color.RED:
+            plt.plot(p.x, p.y, 'ro')
         elif p.color == Color.GREEN:
             plt.plot(p.x, p.y, 'go')
         elif p.color == Color.PURPLE:
             plt.plot(p.x, p.y, 'mo')
-        if p.generatedcolor == Color.RED:
-            plt.plot(p.x, p.y, 'r+')
-        elif p.generatedcolor == Color.BLUE:
-            plt.plot(p.x, p.y, 'b+')
-        elif p.generatedcolor == Color.GREEN:
-            plt.plot(p.x, p.y, 'g+')
-        elif p.generatedcolor == Color.PURPLE:
-            plt.plot(p.x, p.y, 'm+')
+        elif p.color == Color.YELLOW:
+            plt.plot(p.x, p.y, 'yo')
     plt.show()
     
 main()
