@@ -28,7 +28,7 @@ class point:
         self.distance = 0
 
 def distance(p1, p2):
-    return math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2)
+    return (p1.x - p2.x)**2 + (p1.y - p2.y)**2
 
 def getNearestNeighbours(k, point, points):
     for p in points:
@@ -96,36 +96,56 @@ def main():
     start_time = time.time()
     
     points = initialpoints()
-    k = 1
+    k = 7
     for i in range(10000):
-        x = random.randint(-5000, 500)
-        y = random.randint(-5000, 500)
+        if random.randint(0, 100) < 1:
+            x = random.randint(-5000, 5000)
+            y = random.randint(-5000, 5000)
+        else:
+            x = random.randint(-5000, 500)
+            y = random.randint(-5000, 500)
         newpoint = point(x, y, Color.RED)
         neighbours = getNearestNeighbours(k, newpoint, points)
+        newpoint.generatedcolor = Color.RED
         newpoint.color = getMostFrequentColor(neighbours)
         # print(newpoint.color)
         points.append(newpoint)
         
-        x = random.randint(-500,5000)
-        y = random.randint(-5000, 500)
+        if random.randint(0, 100) < 1:
+            x = random.randint(-5000, 5000)
+            y = random.randint(-5000, 5000)
+        else:
+            x = random.randint(-500,5000)
+            y = random.randint(-5000, 500)
         newpoint = point(x, y, Color.GREEN)
         neighbours = getNearestNeighbours(k, newpoint, points)
+        newpoint.generatedcolor = Color.GREEN
         newpoint.color = getMostFrequentColor(neighbours)
         # print(newpoint.color)
         points.append(newpoint)
         
-        x = random.randint(-5000, 500)
-        y = random.randint(-500,5000)
+        if random.randint(0, 100) < 1:
+            x = random.randint(-5000, 5000)
+            y = random.randint(-5000, 5000)
+        else:
+            x = random.randint(-5000, 500)
+            y = random.randint(-500,5000)
         newpoint = point(x, y, Color.BLUE)
         neighbours = getNearestNeighbours(k, newpoint, points)
+        newpoint.generatedcolor = Color.BLUE
         newpoint.color = getMostFrequentColor(neighbours)
         # print(newpoint.color)
         points.append(newpoint)
         
-        x = random.randint(-500,5000)
-        y = random.randint(-500,5000)
+        if random.randint(0, 100) < 1:
+            x = random.randint(-5000, 5000)
+            y = random.randint(-5000, 5000)
+        else:
+            x = random.randint(-500,5000)
+            y = random.randint(-500,5000)
         newpoint = point(x, y, Color.PURPLE)
         neighbours = getNearestNeighbours(k, newpoint, points)
+        newpoint.generatedcolor = Color.PURPLE
         newpoint.color = getMostFrequentColor(neighbours)
         # print(newpoint.color)
         points.append(newpoint)
@@ -148,6 +168,13 @@ def main():
         elif p.color == Color.YELLOW:
             plt.plot(p.x, p.y, 'yo')
     plt.show()
+    
+    z = 0
+    for p in points:
+        if p.generatedcolor == p.color:
+            z += 1
+    print("Accuracy: ", z/len(points)*100, "%")
+            
     
 main()
     
