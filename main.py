@@ -198,6 +198,13 @@ def initialpoints():
     points.append(point(1800, 2400, Color.PURPLE))
     points.append(point(2500, 3400, Color.PURPLE))
     points.append(point(2500, 1400, Color.PURPLE))
+    
+    for point in points:
+        point.color1 = point.color
+        point.color3 = point.color
+        point.color7 = point.color
+        point.color15 = point.color
+    
     return points
 
 def main():
