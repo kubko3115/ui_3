@@ -199,11 +199,11 @@ def initialpoints():
     points.append(point(2500, 3400, Color.PURPLE))
     points.append(point(2500, 1400, Color.PURPLE))
     
-    for point in points:
-        point.color1 = point.color
-        point.color3 = point.color
-        point.color7 = point.color
-        point.color15 = point.color
+    for p in points:
+        p.color1 = p.color
+        p.color3 = p.color
+        p.color7 = p.color
+        p.color15 = p.color
     
     return points
 
@@ -223,14 +223,15 @@ def main():
         newpoint.generatedcolor = Color.RED
         # neighbours = getNearestNeighbours(k, newpoint, points)
         # newpoint.color = getMostFrequentColor(neighbours)
-        neighbours = getNearestNeighbours(1, newpoint, points)
-        newpoint.color1 = neighbours[0].color1
-        neighbours = getNearestNeighbours(3, newpoint, points)
-        newpoint.color3 = getMostFrequentColor3(neighbours)
-        neighbours = getNearestNeighbours(7, newpoint, points)
-        newpoint.color7 = getMostFrequentColor7(neighbours)
         neighbours = getNearestNeighbours(15, newpoint, points)
+        neighbours.sort(key=lambda x: x.distance)
         newpoint.color15 = getMostFrequentColor15(neighbours)
+        neighbours = neighbours[:7]
+        newpoint.color7 = getMostFrequentColor7(neighbours)
+        neighbours = neighbours[:3]
+        newpoint.color3 = getMostFrequentColor3(neighbours)
+        neighbours = neighbours[:1]
+        newpoint.color1 = neighbours[0].color1
         # print(newpoint.color)
         points.append(newpoint)
         
@@ -244,14 +245,15 @@ def main():
         newpoint.generatedcolor = Color.GREEN
         # neighbours = getNearestNeighbours(k, newpoint, points)
         # newpoint.color = getMostFrequentColor(neighbours)
-        neighbours = getNearestNeighbours(1, newpoint, points)
-        newpoint.color1 = neighbours[0].color1
-        neighbours = getNearestNeighbours(3, newpoint, points)
-        newpoint.color3 = getMostFrequentColor3(neighbours)
-        neighbours = getNearestNeighbours(7, newpoint, points)
-        newpoint.color7 = getMostFrequentColor7(neighbours)
         neighbours = getNearestNeighbours(15, newpoint, points)
+        neighbours.sort(key=lambda x: x.distance)
         newpoint.color15 = getMostFrequentColor15(neighbours)
+        neighbours = neighbours[:7]
+        newpoint.color7 = getMostFrequentColor7(neighbours)
+        neighbours = neighbours[:3]
+        newpoint.color3 = getMostFrequentColor3(neighbours)
+        neighbours = neighbours[:1]
+        newpoint.color1 = neighbours[0].color1
         # print(newpoint.color)
         points.append(newpoint)
         
@@ -265,14 +267,16 @@ def main():
         newpoint.generatedcolor = Color.BLUE
         # neighbours = getNearestNeighbours(k, newpoint, points)
         # newpoint.color = getMostFrequentColor(neighbours)
-        neighbours = getNearestNeighbours(1, newpoint, points)
-        newpoint.color1 = neighbours[0].color
-        neighbours = getNearestNeighbours(3, newpoint, points)
-        newpoint.color3 = getMostFrequentColor3(neighbours)
-        neighbours = getNearestNeighbours(7, newpoint, points)
-        newpoint.color7 = getMostFrequentColor7(neighbours)
         neighbours = getNearestNeighbours(15, newpoint, points)
+        neighbours.sort(key=lambda x: x.distance)
         newpoint.color15 = getMostFrequentColor15(neighbours)
+        neighbours = neighbours[:7]
+        newpoint.color7 = getMostFrequentColor7(neighbours)
+        neighbours = neighbours[:3]
+        newpoint.color3 = getMostFrequentColor3(neighbours)
+        neighbours = neighbours[:1]
+        newpoint.color1 = neighbours[0].color1
+
         # print(newpoint.color)
         points.append(newpoint)
         
@@ -286,14 +290,15 @@ def main():
         newpoint.generatedcolor = Color.PURPLE
         # neighbours = getNearestNeighbours(k, newpoint, points)
         # newpoint.color = getMostFrequentColor(neighbours)
-        neighbours = getNearestNeighbours(1, newpoint, points)
-        newpoint.color1 = neighbours[0].color1
-        neighbours = getNearestNeighbours(3, newpoint, points)
-        newpoint.color3 = getMostFrequentColor3(neighbours)
-        neighbours = getNearestNeighbours(7, newpoint, points)
-        newpoint.color7 = getMostFrequentColor7(neighbours)
         neighbours = getNearestNeighbours(15, newpoint, points)
+        neighbours.sort(key=lambda x: x.distance)
         newpoint.color15 = getMostFrequentColor15(neighbours)
+        neighbours = neighbours[:7]
+        newpoint.color7 = getMostFrequentColor7(neighbours)
+        neighbours = neighbours[:3]
+        newpoint.color3 = getMostFrequentColor3(neighbours)
+        neighbours = neighbours[:1]
+        newpoint.color1 = neighbours[0].color1
         # print(newpoint.color)
         points.append(newpoint)
         if i % 1000 == 0:
@@ -327,7 +332,8 @@ def main():
             plt1.plot(p.x, p.y, 'mo')
         elif p.color1 == Color.YELLOW:
             plt1.plot(p.x, p.y, 'yo')
-    plt1.show()
+    # plt1.show()
+    plt1.savefig(f"plt1.png")
     
     for p in points:
         if p.color3 == Color.BLUE:
@@ -340,7 +346,8 @@ def main():
             plt3.plot(p.x, p.y, 'mo')
         elif p.color3 == Color.YELLOW:
             plt3.plot(p.x, p.y, 'yo')
-    plt3.show()
+    # plt3.show()
+    plt3.savefig(f"plt3.png")
     
     for p in points:
         if p.color7 == Color.BLUE:
@@ -353,7 +360,8 @@ def main():
             plt7.plot(p.x, p.y, 'mo')
         elif p.color7 == Color.YELLOW:
             plt7.plot(p.x, p.y, 'yo')
-    plt7.show()
+    # plt7.show()
+    plt7.savefig(f"plt7.png")
     
     for p in points:
         if p.color15 == Color.BLUE:
@@ -366,7 +374,8 @@ def main():
             plt15.plot(p.x, p.y, 'mo')
         elif p.color15 == Color.YELLOW:
             plt15.plot(p.x, p.y, 'yo')
-    plt15.show()
+    # plt15.show()
+    plt15.savefig(f"plt15.png")
     
     
     z = 0
@@ -392,6 +401,7 @@ def main():
             
     
 main()
+
     
 
     
